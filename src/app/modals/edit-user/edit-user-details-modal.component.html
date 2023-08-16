@@ -1,0 +1,50 @@
+<div class="content">
+  <h2>Edit person details</h2>
+
+  <form [formGroup]="editForm">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error
+        *ngIf="editForm.get('name')?.hasError('required')"
+      >
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error
+        *ngIf="editForm.get('email')?.hasError('required')"
+      >
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="active">Active</mat-option>
+          <mat-option value="inactive">Inactive</mat-option>
+        </mat-select>
+      </mat-form-field>
+  </form>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="!editForm.dirty || !editForm.valid"
+  >
+    Submit
+  </button>
+</div>

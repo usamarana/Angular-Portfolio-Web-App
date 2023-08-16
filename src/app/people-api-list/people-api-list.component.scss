@@ -1,0 +1,15 @@
+.content {
+  padding: 20px;
+}
+  
+table {
+  width: 100%;
+}
+
+.center {
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Set container height to full viewport height */
+}
+  

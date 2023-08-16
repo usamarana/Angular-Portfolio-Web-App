@@ -1,0 +1,49 @@
+<mat-toolbar color="primary">Booking API</mat-toolbar>
+
+<div class="content">
+  <h2>Please enter new people details</h2>
+
+  <form [formGroup]="bookingForm">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error
+        *ngIf="bookingForm.get('name')?.hasError('required')"
+      >
+        First name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error
+        *ngIf="bookingForm.get('email')?.hasError('required')"
+      >
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="Male">Male</mat-option>
+        <mat-option value="Female">Female</mat-option>
+      </mat-select>
+      <mat-error
+        *ngIf="bookingForm.get('gender')?.hasError('required')"
+      >
+        Gender is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="!bookingForm.dirty || !bookingForm.valid"
+  >
+    Submit
+  </button>
+</div>
