@@ -14,6 +14,8 @@ Routing between the different components is also demonstrated, as well as loadin
 
 **DELETE:** This request is used to delete the users when clicking on the delete button in the "Actions" column inside the list table
 
+[Angular Portfolio Web App URL](https://usamarana.github.io/Angular-Portfolio-Web-App/)
+
 [LinkedIn](https://www.linkedin.com/in/usama-rana-805317120/)
 
 [Github Angular Portfolio](https://github.com/usamarana/Angular-Portfolio-Web-App)
