@@ -27,21 +27,37 @@ export class PeopleListApiComponent implements OnInit {
   people: PeopleGoRest[] = [];
   readonly loading$ = this.peopleStateService.getLoading();
   constructor(
-    private peopleService: PeopleService, 
+    private peopleService: PeopleService,
     private peopleStateService: PeopleStateService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog) {}
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.loadPeople();
   }
 
   deleteUser(id: number) {
-    this.peopleStateService.setLoading(true);
-    this.peopleService.deleteUser(id).pipe(take(1)).subscribe(() => {
-      this.snackBar.open('User Deleted');
-      this.loadPeople();
-    });
+    this.peopleService
+      .deleteUser(id)
+      .pipe(take(1))
+      .subscribe(
+        (result) => {
+          if (result) {
+            this.snackBar.open('Executive Group deleted', undefined, {
+              duration: 4000,
+              panelClass: 'success-snackbar',
+            });
+            this.loadPeople();
+          }
+        },
+        (error) => {
+          this.snackBar.open(error.error.messages[0], undefined, {
+            duration: 4000,
+            panelClass: 'error-snackbar',
+          });
+        }
+      );
   }
 
   openDialog(people: PeopleGoRest) {
@@ -56,17 +72,20 @@ export class PeopleListApiComponent implements OnInit {
   //Load the list of people from the API
   private loadPeople(): void {
     this.peopleStateService.setLoading(true);
-    this.peopleService.getPeopleGoRest().pipe(take(1)).subscribe(
-      (people: PeopleGoRest[]) => {
-        this.people = [...people];
-        this.dataSource = new MatTableDataSource<PeopleGoRest>(this.people);
-        setTimeout(() => (this.dataSource.paginator = this.paginator));
-        setTimeout(() => (this.dataSource.sort = this.sort));
-        this.peopleStateService.setLoading(false);
-      },
-      (err: any) => {
-        console.error(err);
-      }
-    );
+    this.peopleService
+      .getPeopleGoRest()
+      .pipe(take(1))
+      .subscribe(
+        (people: PeopleGoRest[]) => {
+          this.people = [...people];
+          this.dataSource = new MatTableDataSource<PeopleGoRest>(this.people);
+          setTimeout(() => (this.dataSource.paginator = this.paginator));
+          setTimeout(() => (this.dataSource.sort = this.sort));
+          this.peopleStateService.setLoading(false);
+        },
+        (err: any) => {
+          console.error(err);
+        }
+      );
   }
 }
