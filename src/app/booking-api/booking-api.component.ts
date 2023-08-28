@@ -23,7 +23,7 @@ export class BookingApiComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private router: Router,
-    private peopleService: PeopleService,
+    private peopleService: PeopleService
   ) {}
 
   public ngOnInit(): void {
@@ -49,27 +49,34 @@ export class BookingApiComponent implements OnInit {
 
     if (!this.bookingForm.valid) return;
 
-    const { email, gender, id, name } =
-      this.bookingForm.value;
+    const { email, gender, id, name } = this.bookingForm.value;
     const people: PeopleGoRest = {
       email: email,
       gender: gender,
       id: id,
       name: name,
-      status: "active",
+      status: 'active',
     };
 
-    this.peopleService.checkInGoRest(people)
+    this.peopleService
+      .checkInGoRest(people)
       .pipe(take(1))
-      .subscribe((result: PeopleGoRest) => {
-        if(result) {
-          this.snackBar.open('People checked in successfully');
-          this.router.navigate(['people-api']);
+      .subscribe(
+        (result) => {
+          if (result) {
+            this.snackBar.open('User added successfully', undefined, {
+              duration: 4000,
+              panelClass: 'success-snackbar',
+            });
+            this.router.navigate(['people-api']);
+          }
+        },
+        (error) => {
+          this.snackBar.open('Email may be invalid', undefined, {
+            duration: 4000,
+            panelClass: 'error-snackbar',
+          });
         }
-        (error: HttpErrorResponse)=>{
-          alert(error.error.message);
-          this.snackBar.open(error.error.message);
-        }
-      })
+      );
   }
 }

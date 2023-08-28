@@ -21,7 +21,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PeopleListApiComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+  
   columns: string[] = ['id', 'name', 'email', 'gender', 'status', 'action'];
   dataSource!: MatTableDataSource<PeopleGoRest>;
   people: PeopleGoRest[] = [];
@@ -44,7 +44,7 @@ export class PeopleListApiComponent implements OnInit {
       .subscribe(
         (result) => {
           if (result) {
-            this.snackBar.open('Executive Group deleted', undefined, {
+            this.snackBar.open('User deleted successfully', undefined, {
               duration: 4000,
               panelClass: 'success-snackbar',
             });
@@ -52,7 +52,7 @@ export class PeopleListApiComponent implements OnInit {
           }
         },
         (error) => {
-          this.snackBar.open(error.error.messages[0], undefined, {
+          this.snackBar.open('Something went wrong', undefined, {
             duration: 4000,
             panelClass: 'error-snackbar',
           });
