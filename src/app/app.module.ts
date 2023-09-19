@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BookingApiComponent } from './booking-api/booking-api.component';
 import { EditUserDetailsComponent } from './modals/edit-user/edit-user-details-modal.component';
 import { WebAppInfoComponent } from './web-app-info/web-app-info.component';
+import { DeleteUserDetailsComponent } from './modals/delete-user/delete-user-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { WebAppInfoComponent } from './web-app-info/web-app-info.component';
     PageNotFoundComponent,
     BookingApiComponent,
     EditUserDetailsComponent,
+    DeleteUserDetailsComponent,
     WebAppInfoComponent
   ],
   imports: [

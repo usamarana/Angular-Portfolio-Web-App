@@ -1,0 +1,13 @@
+<div class="center-content">
+    <h2 mat-dialog-title>Delete Confirmation</h2>
+    <mat-dialog-content>
+      <div >
+        <p>Are you sure you want to delete this user?</p>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button (click)="deleteUser()" mat-raised-button color="warn">Delete</button>
+    </mat-dialog-actions>
+</div>
+

@@ -8,7 +8,7 @@ import { PeopleStateService } from '../_services/people-state.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserDetailsComponent } from '../modals/edit-user/edit-user-details-modal.component';
 import { take } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { DeleteUserDetailsComponent } from '../modals/delete-user/delete-user-details-modal.component';
 
 @Component({
   selector: 'app-people-list',
@@ -29,7 +29,6 @@ export class PeopleListApiComponent implements OnInit {
   constructor(
     private peopleService: PeopleService,
     private peopleStateService: PeopleStateService,
-    private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {}
 
@@ -37,30 +36,16 @@ export class PeopleListApiComponent implements OnInit {
     this.loadPeople();
   }
 
-  deleteUser(id: number) {
-    this.peopleService
-      .deleteUser(id)
-      .pipe(take(1))
-      .subscribe(
-        (result) => {
-          if (result) {
-            this.snackBar.open('User deleted successfully', undefined, {
-              duration: 4000,
-              panelClass: 'success-snackbar',
-            });
-            this.loadPeople();
-          }
-        },
-        (error) => {
-          this.snackBar.open('Something went wrong', undefined, {
-            duration: 4000,
-            panelClass: 'error-snackbar',
-          });
-        }
-      );
+  openDeleteModal(id: number) {
+    const dialogRef = this.dialog.open(DeleteUserDetailsComponent, {
+      data: id,
+    });
+    dialogRef.componentInstance.submitClicked.subscribe(() => {
+      this.loadPeople();
+    });
   }
 
-  openDialog(people: PeopleGoRest) {
+  openEditModal(people: PeopleGoRest) {
     const dialogRef = this.dialog.open(EditUserDetailsComponent, {
       data: people,
     });
